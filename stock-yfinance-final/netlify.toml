@@ -1,0 +1,18 @@
+[build]
+  command = "pip install yfinance requests && echo done"
+  publish = "public"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type"
+
+# 매일 오전 7시 KST (= UTC 22:00 전날) 자동 실행
+[[scheduled_functions]]
+  name = "daily-report"
+  cron = "0 22 * * *"
